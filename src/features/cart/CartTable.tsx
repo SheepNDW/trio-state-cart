@@ -1,18 +1,11 @@
-import { useState } from 'react';
 import CartRow from '~/features/cart/CartRow';
 import Button from '~/ui/Button';
 import Table from '~/ui/Table';
 
-import { cartItems as initialCartItems } from '~/fakeData';
+import { useCart } from '~/context/useCart';
 
 function CartDetail() {
-  const [cartItems] = useState(initialCartItems);
-
-  // 計算總價
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const { cartItems, totalPrice } = useCart();
 
   return (
     <Table columns="1fr 1fr 1fr 1fr 1fr">

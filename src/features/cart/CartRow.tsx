@@ -1,9 +1,25 @@
+import { useCart } from '~/context/useCart';
 import { CartItem } from '~/types';
 import Button from '~/ui/Button';
 import Table from '~/ui/Table';
 
 function CartRow({ cartItem }: { cartItem: CartItem }) {
   const { id, title, price, quantity, imageUrl } = cartItem;
+  const { removeItem, updateQuantity } = useCart();
+
+  function increaseQuantity() {
+    const updatedItem = { ...cartItem, quantity: quantity + 1 };
+    updateQuantity(updatedItem);
+  }
+
+  function decreaseQuantity() {
+    if (quantity === 1) {
+      removeItem(id);
+    } else {
+      const updatedItem = { ...cartItem, quantity: quantity - 1 };
+      updateQuantity(updatedItem);
+    }
+  }
 
   return (
     <Table.Row>
@@ -16,7 +32,7 @@ function CartRow({ cartItem }: { cartItem: CartItem }) {
           size="small"
           color="secondary"
           className="h-6 w-6"
-          onClick={() => {}}
+          onClick={decreaseQuantity}
         >
           -
         </Button>
@@ -25,13 +41,13 @@ function CartRow({ cartItem }: { cartItem: CartItem }) {
           size="small"
           color="secondary"
           className="h-6 w-6"
-          onClick={() => {}}
+          onClick={increaseQuantity}
         >
           +
         </Button>
       </div>
       <div>{price * quantity}元</div>
-      <Button size="small" color="secondary" onClick={() => {}}>
+      <Button size="small" color="secondary" onClick={() => removeItem(id)}>
         移除
       </Button>
     </Table.Row>

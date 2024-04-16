@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import CartIcon from '~/assets/bag.png';
-import { cartItems } from '~/fakeData';
+import { useCart } from '~/context/useCart';
 
 function FloatingCart() {
-  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const { itemCount } = useCart();
 
   return (
     <div className="fixed bottom-12 right-12">
