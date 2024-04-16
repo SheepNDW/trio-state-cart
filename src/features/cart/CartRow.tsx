@@ -1,23 +1,27 @@
-import { useCart } from '~/context/useCart';
-import { CartItem } from '~/types';
+// import { useCart } from '~/context/useCart';
+import { useDispatch } from 'react-redux';
+import { removeItem, updateQuantity } from '~/features/cart/cartSlice';
+import type { AppDispatch } from '~/redux-store';
+import type { CartItem } from '~/types';
 import Button from '~/ui/Button';
 import Table from '~/ui/Table';
 
 function CartRow({ cartItem }: { cartItem: CartItem }) {
   const { id, title, price, quantity, imageUrl } = cartItem;
-  const { removeItem, updateQuantity } = useCart();
+  // const { removeItem, updateQuantity } = useCart();
+  const dispatch = useDispatch<AppDispatch>();
 
   function increaseQuantity() {
     const updatedItem = { ...cartItem, quantity: quantity + 1 };
-    updateQuantity(updatedItem);
+    dispatch(updateQuantity(updatedItem));
   }
 
   function decreaseQuantity() {
     if (quantity === 1) {
-      removeItem(id);
+      dispatch(removeItem(id));
     } else {
       const updatedItem = { ...cartItem, quantity: quantity - 1 };
-      updateQuantity(updatedItem);
+      dispatch(updateQuantity(updatedItem));
     }
   }
 
@@ -47,7 +51,11 @@ function CartRow({ cartItem }: { cartItem: CartItem }) {
         </Button>
       </div>
       <div>{price * quantity}元</div>
-      <Button size="small" color="secondary" onClick={() => removeItem(id)}>
+      <Button
+        size="small"
+        color="secondary"
+        onClick={() => dispatch(removeItem(id))}
+      >
         移除
       </Button>
     </Table.Row>

@@ -1,8 +1,13 @@
-import { useCart } from '~/context/useCart';
+import { useSelector } from 'react-redux';
+// import { useCart } from '~/context/useCart';
+import { getTotalPrice } from '~/features/cart/cartSlice';
 import CheckoutRow from '~/features/checkout/CheckoutRow';
+import type { RootState } from '~/redux-store';
 
 function CheckoutTable() {
-  const { cartItems, totalPrice } = useCart();
+  // const { cartItems, totalPrice } = useCart();
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const totalPrice = useSelector(getTotalPrice);
 
   return (
     <table className="w-full border-collapse text-left">

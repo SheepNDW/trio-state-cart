@@ -1,9 +1,13 @@
-import { useCart } from '~/context/useCart';
+import { useDispatch } from 'react-redux';
+// import { useCart } from '~/context/useCart';
+import { addItem } from '~/features/cart/cartSlice';
+import type { AppDispatch } from '~/redux-store';
 import type { MealInfo } from '~/types';
 import Button from '~/ui/Button';
 
 function MealItem({ meal }: { meal: MealInfo }) {
-  const { addItem } = useCart();
+  // const { addItem } = useCart();
+  const dispatch = useDispatch<AppDispatch>();
 
   function handleAddToCart() {
     const item = {
@@ -14,7 +18,7 @@ function MealItem({ meal }: { meal: MealInfo }) {
       quantity: 1,
     };
 
-    addItem(item);
+    dispatch(addItem(item));
   }
 
   return (

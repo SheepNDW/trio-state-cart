@@ -1,11 +1,15 @@
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '~/context/useCart';
+// import { useCart } from '~/context/useCart';
+import { clearCart } from '~/features/cart/cartSlice';
 import CheckoutTable from '~/features/checkout/CheckoutTable';
+import type { AppDispatch } from '~/redux-store';
 import Button from '~/ui/Button';
 import Heading from '~/ui/Heading';
 
 function Checkout() {
-  const { clearCart } = useCart();
+  // const { clearCart } = useCart();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   return (
@@ -17,7 +21,7 @@ function Checkout() {
       <div className="mt-4 flex justify-end">
         <Button
           onClick={() => {
-            clearCart();
+            dispatch(clearCart());
             navigate('/mealslist');
           }}
         >
