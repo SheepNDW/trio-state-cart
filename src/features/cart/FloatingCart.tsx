@@ -1,9 +1,12 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CartIcon from '~/assets/bag.png';
-import { useCart } from '~/context/useCart';
+import { getItemCount } from '~/features/cart/cartSlice';
+// import { useCart } from '~/context/useCart';
 
 function FloatingCart() {
-  const { itemCount } = useCart();
+  // const { itemCount } = useCart();
+  const itemCount = useSelector(getItemCount);
 
   return (
     <div className="fixed bottom-12 right-12">
