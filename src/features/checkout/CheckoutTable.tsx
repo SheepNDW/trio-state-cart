@@ -1,12 +1,8 @@
-import { cartItems } from '~/fakeData';
+import { useCart } from '~/context/useCart';
 import CheckoutRow from '~/features/checkout/CheckoutRow';
 
 function CheckoutTable() {
-  // 計算總計金額
-  const totalAmount = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const { cartItems, totalPrice } = useCart();
 
   return (
     <table className="w-full border-collapse text-left">
@@ -28,7 +24,7 @@ function CheckoutTable() {
           <td className="border p-2" colSpan={3}>
             總計
           </td>
-          <td className="border p-2">{totalAmount}元</td>
+          <td className="border p-2">{totalPrice}元</td>
         </tr>
       </tfoot>
     </table>

@@ -1,7 +1,22 @@
+import { useCart } from '~/context/useCart';
 import type { MealInfo } from '~/types';
 import Button from '~/ui/Button';
 
 function MealItem({ meal }: { meal: MealInfo }) {
+  const { addItem } = useCart();
+
+  function handleAddToCart() {
+    const item = {
+      id: meal.id,
+      title: meal.title,
+      imageUrl: meal.imageUrl,
+      price: meal.price,
+      quantity: 1,
+    };
+
+    addItem(item);
+  }
+
   return (
     <div className="overflow-hidden rounded-lg border shadow-lg">
       <img
@@ -21,7 +36,7 @@ function MealItem({ meal }: { meal: MealInfo }) {
           </span>
         </div>
         <div className="mt-2">
-          <Button>加入購物車</Button>
+          <Button onClick={handleAddToCart}>加入購物車</Button>
         </div>
       </div>
     </div>
