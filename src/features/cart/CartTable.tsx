@@ -1,7 +1,8 @@
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import CartRow from '~/features/cart/CartRow';
-import { getTotalPrice } from '~/features/cart/cartSlice';
-import type { RootState } from '~/redux-store';
+// import { getTotalPrice } from '~/features/cart/cartSlice';
+// import type { RootState } from '~/redux-store';
+import { useCartStore } from '~/store/useCartStore';
 import Button from '~/ui/Button';
 import Table from '~/ui/Table';
 
@@ -9,8 +10,10 @@ import Table from '~/ui/Table';
 
 function CartDetail() {
   // const { cartItems, totalPrice } = useCart();
-  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
-  const totalPrice = useSelector(getTotalPrice);
+  // const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  // const totalPrice = useSelector(getTotalPrice);
+  const cartItems = useCartStore(state => state.cartItems);
+  const totalPrice = useCartStore(state => state.getTotalPrice());
 
   return (
     <Table columns="1fr 1fr 1fr 1fr 1fr">
